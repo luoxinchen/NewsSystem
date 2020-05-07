@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.editor.mapper.upload">
+
+	<!-- 置顶文章插入  -->
+	<insert id="insertPhoto">
+		insert into topimage values(default,#{writeId},#{image},#{title},#{time},#{article},#{source},#{editor})	
+	</insert>
+
+	<!-- 头条文章插入 -->
+	<insert id="insertToutiao">
+		insert into toutiaonews values(default,#{writeId},#{image},#{title},#{time},#{article},#{source},#{editor})	
+	</insert>
+	
+	<!-- 普通文章插入 -->
+	<insert id="insertNews">
+		insert into news values(default,#{writeId},#{image},#{title},#{time},#{article},#{source},#{editor})	
+	</insert>
+	
+	
+	<!-- 读取置顶图片中最大的id,也就是说每次查询返回最新的结果-->
+	<select id="readImageId" resultType="int">
+		select max(id) from topimage
+	</select>
+	
+	<!-- 根据上面读取到的id，来获得数据表中的图片 -->
+	<select id="getTopImage" resultType="topimage" parameterType="int">
+		select image from topimage where id=#{0}
+	</select> 
+	
+	<!-- 根据id查找信息 -->
+	<select id="getImageDB" resultType="imagedb" parameterType="int">
+		select * from topimage where id=#{0}	
+	</select>
+	
+	
+	
+</mapper>

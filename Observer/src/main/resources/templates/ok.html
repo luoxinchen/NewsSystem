@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+<body>
+	<span th:if="${userName} == null">
+					请登录后再评论！
+	</span>
+	<span th:if="${userName} != null">
+		<form th:action='@{/pinglun}' method='post'>
+		<input type='hidden' name='pinglunzhe' th:value="${userName}">
+		<input type='hidden' name='xinwendeshijian' th:value="${xinwendeshijian}">
+			<input type='textarea' name='textarea' value="文明发言">
+			<input type='submit' value='评论'>
+		</form>
+	</span>
+</body>
+</html>

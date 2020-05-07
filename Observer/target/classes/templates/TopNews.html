@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- 	------------------本页面用于新闻展示------------------	 -->
+	<head>
+		<meta charset="UTF-8"/>
+		<title>洋葱新闻</title>
+		<!-- 	------------------导航页开始------------------	 -->
+		<style>
+			.hide{
+				display: none;
+			}
+			.c1{
+				position: fixed;
+				top:0;
+				bottom: 0;
+				left:0;
+				right: 0;
+				background: rgba(0,0,0,.5);
+				z-index: 2;
+			}
+			.c2{
+				background-color: white;
+				position: fixed;
+				width: 400px;
+				height: 300px;
+				top:50%;
+				left: 50%;
+				z-index: 3;
+				margin-top: -150px;
+				margin-left: -200px;
+			}
+			#modal p {
+				margin-left:80px;
+			}
+		</style>
+	</head>
+	<body>
+	<div>
+		<hr/ color="red">
+		<table align="center">
+			<tr height="40" align="center">
+				<td width="100"><a href="index.html"/><font face="黑体" size="5">洋葱新闻</font></td>
+				<td width="70">首页</td>
+				<td width="70">风闻</td>
+				<td width="70">国际</td>
+				<td width="70">军事</td>
+				<td width="70">财经</td>
+				<td width="70">产经</td>
+				<td width="70">科技</td>
+				<td width="70">汽车</td>
+				<td width="70">视频</td>
+				<td width="70"/>
+				<td width="70"/>
+				<td width="70"/>
+				<td width="70"></td>
+				<td width="50"/>
+				<td width="70">
+				
+				<span th:if="${userName} == null">
+					<button type="button" style="width:80px;height:30px;" onclick="Show();">登录/注册</button>
+				</span>
+				
+				<span th:if="${userName} != null">
+					<form th:action="@{/test}" method="post">
+					<center>
+						<input type="hidden" th:name="${userName}"/>
+						<input type="submit" style="width:40px;height:30px;" th:value="${userName}"/>
+					</center>
+					</form>
+				</span>
+				
+				</td>
+			</tr>
+		</table>
+		<hr/ color="red">
+	</div>
+	<div id="shade" class="c1 hide"></div>
+	
+	<div id="modal" class="c2 hide">
+	
+	<form th:action="@{/login}" method="post">
+		<div style="text-align:right"><input type="button" value="关闭" onclick="Hide();"/></div>
+		<p><center><h2>极速登录/注册</h2></center></p>
+		<p>用户：<input type="text" name="name"/></p>
+		<p>密码：<input type="password" name="password"/></p>
+	<p>
+		<input type="submit" style="width:230px;height:30px;" value="登录"/><br/>
+		<font size="1"><center>如该手机号未曾注册过洋葱新闻网账号，将为您自动注册进行注册即表示您同意并愿意遵守洋葱新闻用户协议和隐私协议</center></font>
+	</p>
+	</form>
+		</div>
+	 
+	<script>
+		function Show(){
+			document.getElementById('shade').classList.remove('hide');
+			document.getElementById('modal').classList.remove('hide');
+		}
+		 function Hide(){
+			document.getElementById('shade').classList.add('hide');
+			document.getElementById('modal').classList.add('hide');
+		}
+	</script>
+	<!-- 	------------------导航页结束------------------	 -->
+	
+	<!-- 	------------------文章主体开始------------------	 -->
+		
+						<p align="center" th:text="${TopNews.title}"/>
+						<p align="center" th:text="${TopNews.article}"/>
+						<p align="right" th:text="${TopNews.source}"/>
+						<p align="right" th:text="${TopNews.editor}"/>
+						<p align="right" th:text="${TopNews.time}"/>
+</body>
+</html>

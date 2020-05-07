@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8">
+		<title>洋葱新闻</title>
+		<style>
+			.hide{
+				display: none;
+			}
+			.c1{
+				position: fixed;
+				top:0;
+				bottom: 0;
+				left:0;
+				right: 0;
+				background: rgba(0,0,0,.5);
+				z-index: 2;
+			}
+			.c2{
+				background-color: white;
+				position: fixed;
+				width: 400px;
+				height: 300px;
+				top:50%;
+				left: 50%;
+				z-index: 3;
+				margin-top: -150px;
+				margin-left: -200px;
+			}
+			#modal p {
+				margin-left:80px;
+			}
+		</style>
+	</head>
+	<body>
+	<div>
+		<hr color="red"/>
+		<table align="center">
+			<tr height="40" align="center">
+				<td width="100"><a href="index.html"/><font face="黑体" size="5">洋葱新闻</font></td>
+				<td width="70">首页</td>
+				<td width="70">风闻</td>
+				<td width="70">国际</td>
+				<td width="70">军事</td>
+				<td width="70">财经</td>
+				<td width="70">产经</td>
+				<td width="70">科技</td>
+				<td width="70">汽车</td>
+				<td width="70">视频</td>
+				<td width="70"/>
+				<td width="70"/>
+				<td width="70"/>
+				<td width="70">APP下载</td>
+				<td width="50"/>
+				<td width="70">
+		
+		
+		<!-- 此处开始判断是否登录过 -->
+				<span th:if="${userName} == null">
+					<button type="button" style="width:80px;height:30px;" onclick="Show();">登录/注册</button>
+				</span>
+				
+				<span th:if="${userName} != null">
+					<form th:action="@{/usermsg}" method="post">
+						<center>
+							<input type="hidden" name="name1" th:value="${userName}"/>
+							<input type="submit" style="width:40px;height:30px;" th:value="${userName}"/>
+						</center>
+					</form>
+				</span>
+		<!-- 此处结束 -->		
+				</td>
+			</tr>
+		</table>
+		<hr/ color="red">
+	</div>
+	<div id="shade" class="c1 hide"></div>
+	
+	<div id="modal" class="c2 hide">
+	
+		<form th:action="@{/login}" method="post">
+			<div style="text-align:right"><input type="button" value="关闭" onclick="Hide();"/></div>
+			<p><center><h2>极速登录/注册</h2></center></p>
+			<p>用户：<input type="text" name="name"/></p>
+			<p>密码：<input type="password" name="password"/></p>
+			<p>
+			<input type="submit" style="width:230px;height:30px;" value="登录"/><br/>
+			<font size="1"><center>如该手机号未曾注册过洋葱新闻网账号，将为您自动注册进行注册即表示您同意并愿意遵守洋葱新闻用户协议和隐私协议</center></font>
+			</p>
+		</form>
+	</div>
+	 
+	<script>
+		function Show(){
+			document.getElementById('shade').classList.remove('hide');
+			document.getElementById('modal').classList.remove('hide');
+		}
+		 function Hide(){
+			document.getElementById('shade').classList.add('hide');
+			document.getElementById('modal').classList.add('hide');
+		}
+	</script>
+	<!-- ---------------------------------------------------- -->
+	<!-- 置顶图片  -->
+	<table border="0" align="center">
+		 <tr height="65">
+			 <td width="1200" align="center">
+			 	<a href="TopNews">
+	   			<img src="TopImageShow" width="1200" height="65"/>
+	   			</a>
+			 </td>
+		 </tr>
+	</table>
+	<br/><br/>
+	<!-- ---------------------------------------------------- -->
+	<!-- 当日头条标题 -->
+	<font size="10" face="黑体">
+		<center>
+			<a href="ok.html">
+				<!-- 这里的标题从数据库中获取 -->
+				<p th:text="${ImageDBtitle}">
+			</a>
+		</center>
+	</font>
+	<br/>
+	
+	<table border="0" align="center">
+		 <tr height="400">
+			 <!-- 头条图片也是从数据库中获取 -->
+			<td width="1050" align="center" colspan="5">
+				<!-- 头条图片 -->
+				<img src="toutiaoImageShow" width="1050" height="400" alt="替代文本"/>
+				</td>
+		 </tr>
+		 <tr height="15" align="left">
+			<td width="100"></td>
+			<td width="150"></td>
+			<td width="150"></td>
+			<td width="350"></td>
+			<td>
+				<!-- <form th:action="@{/chazhao}" method="post">
+					<center>
+						<input type="search" style="width:230px;height:30px;" name="name"/>
+						<input type="submit" style="height:30px;" value="查找"/>
+					</center>
+				</form> -->
+			</td>
+		 </tr>
+	</table>
+	<br/>
+
+	<!-- ---------------------普通新闻的展示------------------------ -->
+	<table border="0" align="center">
+		<tr>
+			<td width="400" valign="top" align="left">
+				<table border="0">
+					<tr th:each="l1:${list1}">
+						<td>
+							<table border="0">
+								<tr height="20">
+									<td></td>
+								</tr>
+								<tr>
+									<td>
+										<a th:href="${l1.time}">
+										<p th:text="${l1.title}"></p>
+									</td>
+								</tr>
+								<tr>
+									<td th:text="${l1.editor}"></td>
+								</tr>
+								<tr>
+									<td>
+										<img th:src="${l1.id}" width="365" height="143"/>
+									</td>
+								</tr>
+								<tr>
+									<td th:text="${l1.writeId}"></td>
+								</tr>
+								<tr>
+									<td>
+										<hr/>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<!--  ————————————————————————————————————————————————————————————  -->
+			<td width="400" valign="top" align="left">
+				<table border="0">
+					<tr th:each="l2:${list2}">
+						<td>
+							<table border="0">
+								<tr height="20">
+									<td></td>
+								</tr>
+								<tr>
+									<td>
+										<a th:href="${l2.time}">
+										<p th:text="${l2.title}"></p>
+									</td>
+								</tr>
+								<tr>
+									<td th:text="${l2.editor}"></td>
+								</tr>
+								<tr>
+									<td>
+										<img th:src="${l2.id}" width="365" height="143"/>
+									</td>
+								</tr>
+								<tr>
+									<td th:text="${l2.writeId}"></td>
+								</tr>
+								<tr>
+									<td>
+										<hr/>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<!--  ————————————————————————————————————————————————————————————  -->
+			<td width="400" valign="top" align="left">
+				<table border="0">
+					<tr th:each="l3:${list3}">
+						<td>
+							<table border="0">
+								<tr height="20">
+									<td></td>
+								</tr>
+								<tr>
+									<td>
+										<a th:href="${l3.time}">
+										<p th:text="${l3.title}"></p>
+									</td>
+								</tr>
+								<tr>
+									<td th:text="${l3.editor}"></td>
+								</tr>
+								<tr>
+									<td>
+										<img th:src="${l3.id}" width="365" height="143"/>
+									</td>
+								</tr>
+								<tr>
+									<td th:text="${l3.writeId}"></td>
+								</tr>
+								<tr>
+									<td>
+										<hr/>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<hr/>
+	<!-- --------------评论区显示开始--------------- -->
+	
+
+
+	<!-- --------------评论区显示结束--------------- -->	
+	<hr/>
+	<!-- --------------评论输入框开始--------------- -->
+	
+		
+	<!-- --------------评论输入框结束--------------- -->
+	</body>
+	</html>
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+	
+<title>文章编辑界面</title>
+</head>
+<body>
+		<span th:if="${editorName} == null">
+		<meta http-equiv="refresh" content="0;url=Login.html">
+		</span>
+		
+		<span th:if="${userName} != null">
+			<form th:action="@{/file}" method="post" enctype="multipart/form-data">
+			<font size="5" color="black">文章简介：</font>
+			<input type="text" style="width:230px;height:23px;" name="writeId"></input>
+			<br/>
+			
+			<font size="5" color="black">文章标题：</font>
+			<input type="text" style="width:230px;height:23px;" name="title"></input>
+			<br/>
+			
+			<font size="5" color="black">文章主体：</font>
+			<input type="text" style="width:230px;height:23px;" name="article"></input>
+			<br/>
+			
+			<font size="5" color="black">新闻来源：</font>
+			<input type="text" style="width:230px;height:23px;" name="source"></input>
+			<br/>
+			
+			<!-- 此处包含用户的用户名，可以直接在提交文章时，把作者姓名存入数据库 -->
+			<input type="hidden" name="editor" th:value="${userName}"/>
+			
+			<!-- <font size="5" color="black">编辑者：</font>
+			<input type="text" style="width:230px;height:23px;" name="editor"></input> -->
+			<br/>
+			
+			<font size="5" color="black">文件上传:</font>
+	       	<input type="file" name="image"></input>	
+			<br/>
+			
+			<input type="radio" name="danxuan" value="头条新闻">发布为头条</input>
+			<input type="radio" name="danxuan" value="普通新闻">发布为普通新闻</input>
+					
+			<input type="submit" value="发布"></input>	
+		</form>
+		
+		</span>
+		
+	</body>
+</html>

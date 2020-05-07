@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<!-- 此处开始判断是否登录过 -->
+				<span th:if="${userName} == null">
+					<a href="Login.html"/>
+				</span>
+				<span th:if="${userName} != null">
+					<>
+					</form>
+				</span>
+		<!-- 此处结束 -->	
+</body>
+</html>
